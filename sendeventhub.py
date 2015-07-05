@@ -21,6 +21,10 @@ from azure.http.httpclient import (
   _HTTPClient
 )
 
+from datetime import (
+  datetime
+)
+
 class EventHubClient(object):
 
   def sendMessage(self,body,partition):
@@ -59,7 +63,7 @@ class EventDataParser(object):
 
   def getMessage(self,payload,sensorId):
     host = socket.gethostname()
-    body = "{ \"DeviceId\" : \"" + host + "\",\"SensorData\": [ "
+    body = "{ \"DeviceId\": \"" + host + "\", \"TimeStamp\": \"" + datetime.utcnow().isoformat() + "Z\", \"SensorData\": ["
 
     msgs = payload.split(",")
     first = True
@@ -74,7 +78,7 @@ class EventDataParser(object):
         body += ","
 
       body += "{ \"SensorId\" : \"" + sensorId + "\", \"SensorType\" : \"" + sensorType + "\", \"SensorValue\" : " + sensorValue + " }"
-     body += "]}"
+    body += "]}"
 
     return body
 
@@ -85,6 +89,4 @@ sensor = sys.argv[2]
 
 body = parser.getMessage(sys.argv[1], sensor)
 hubStatus = hubClient.sendMessage(body, hostname)
-
 # return the HTTP status to the caller
-print hubStatus

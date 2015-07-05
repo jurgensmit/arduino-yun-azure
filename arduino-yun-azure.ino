@@ -104,7 +104,6 @@ void sendSensorValues(float temperature, float humidity, unsigned int light) {
   }
 
   printMessage(resultCode);
-  printMessage(String(humidity));
 }
 
 void loop() {
