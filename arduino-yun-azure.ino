@@ -86,7 +86,7 @@ void sendSensorValues(float temperature, float humidity, unsigned int light) {
 
   String sensorValues = "temperature:" + String(temperature) + ",humidity:" + String(humidity) + ",light:" + String(light);
 
-  p.begin("python");
+  p.begin(F("python"));
   p.addParameter(F("/root/sendeventhub.py"));
   p.addParameter(sensorValues);
   p.addParameter(F("arduino-yun-jurgen"));
@@ -104,6 +104,7 @@ void sendSensorValues(float temperature, float humidity, unsigned int light) {
   }
 
   printMessage(resultCode);
+  printMessage(String(temperature));
 }
 
 void loop() {
