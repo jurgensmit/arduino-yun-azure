@@ -30,8 +30,8 @@ DHT dht(DHT_PIN, DHT_TYPE);
 rgb_lcd lcd;
 
 void setup() {
-  lcd.begin(16, 2);  // Set up the LCD's number of columns and rows:
-
+  lcd.begin(16, 2);   // Set up the LCD's number of columns and rows:
+  lcd.setColorAll();  // Turn off the backlight
   lcd.clear();
   lcd.print(F("Arduino Azure"));
 
